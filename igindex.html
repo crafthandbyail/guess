@@ -1,0 +1,2327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#ffffff">
+
+  <title>lesyeuxdenini</title>
+
+  <style>
+    :root {
+      --background: #ffffff;
+      --text: #080808;
+      --button: #f0eff4;
+      --secondary: #777777;
+      --border: #dedede;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--background);
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    button, input, textarea {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    button:focus-visible,
+    input:focus-visible,
+    textarea:focus-visible {
+      outline: 2px solid #888;
+      outline-offset: 3px;
+    }
+
+    .app {
+      max-width: 850px;
+      min-height: 100vh;
+      margin: auto;
+      background: white;
+    }
+
+    /* HEADER */
+
+    .header {
+      height: 110px;
+      padding: 0 25px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    .icon-button {
+      width: 48px;
+      height: 48px;
+      padding: 0;
+      border: none;
+      background: transparent;
+      color: black;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .icon-button svg {
+      width: 35px;
+      height: 35px;
+      stroke: currentColor;
+      stroke-width: 2;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .username-heading {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      min-width: 0;
+      flex: 1;
+    }
+
+    .username-heading h1 {
+      margin: 0;
+      font-size: clamp(22px, 5.3vw, 42px);
+      font-weight: 750;
+      letter-spacing: -1.5px;
+      overflow-wrap: anywhere;
+      text-align: center;
+    }
+
+    .dropdown-arrow {
+      width: 13px;
+      height: 13px;
+      border-right: 2px solid;
+      border-bottom: 2px solid;
+      transform: rotate(45deg) translateY(-3px);
+      flex-shrink: 0;
+    }
+
+    /* PROFILE */
+
+    .profile {
+      padding: 55px 35px 40px;
+    }
+
+    .profile-top {
+      margin-bottom: 45px;
+    }
+
+    .avatar {
+      width: 205px;
+      height: 205px;
+      border-radius: 50%;
+      background: #f0eff4;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      padding: 0;
+      position: relative;
+    }
+
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .avatar-placeholder {
+      color: #888;
+      font-size: 46px;
+      font-weight: 300;
+    }
+
+    .profile-name {
+      font-size: 34px;
+      line-height: 1.2;
+      font-weight: 750;
+      margin: 0 0 15px;
+      overflow-wrap: anywhere;
+    }
+
+    .bio {
+      font-size: 28px;
+      line-height: 1.4;
+      font-weight: 400;
+      margin: 0;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+
+    /* SPOTIFY PLAYER */
+
+    .music-section {
+      margin-top: 25px;
+      margin-bottom: 35px;
+    }
+
+    .music-section:empty {
+      display: none;
+    }
+
+    .spotify-frame {
+      display: block;
+      width: 100%;
+      max-width: 520px;
+      border: none;
+      border-radius: 12px;
+      min-height: 152px;
+      background: #f0eff4;
+    }
+
+    .music-placeholder {
+      max-width: 520px;
+      min-height: 76px;
+      padding: 18px;
+      border-radius: 15px;
+      background: #f7f6f8;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      color: #666;
+      font-size: 14px;
+    }
+
+    .spotify-symbol {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: #191414;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+
+    /* MUSIC CHIP */
+
+    .music-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .music-chip,
+    .music-add {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      min-width: 0;
+      max-width: 100%;
+      padding: 14px 24px;
+      border-radius: 999px;
+      border: 1px solid #272c33;
+      background: #0d1014;
+      color: #f4f5f7;
+      font-size: 22px;
+      font-weight: 650;
+      line-height: 1.2;
+      transition: background 0.2s;
+    }
+
+    .music-chip:hover,
+    .music-add:hover {
+      background: #181c22;
+    }
+
+    .music-chip svg,
+    .music-add svg {
+      width: 28px;
+      height: 28px;
+      flex-shrink: 0;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2.2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .music-chip span {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .music-chip .artist {
+      margin-left: 6px;
+    }
+
+    .music-add {
+      color: #a3a8b3;
+    }
+
+    .music-player {
+      margin-top: 14px;
+    }
+
+    .music-player:empty {
+      display: none;
+    }
+
+    /* ACTION BUTTONS */
+
+    .actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr 90px;
+      gap: 12px;
+      margin-bottom: 65px;
+    }
+
+    .action-button {
+      min-height: 78px;
+      padding: 12px;
+      border: none;
+      border-radius: 26px;
+      background: var(--button);
+      color: #080808;
+      font-size: 23px;
+      font-weight: 650;
+      transition: background 0.2s;
+    }
+
+    .action-button:hover {
+      background: #e7e6eb;
+    }
+
+    .action-button svg {
+      width: 35px;
+      height: 35px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* HIGHLIGHTS */
+
+    .highlights {
+      display: flex;
+      align-items: flex-start;
+      gap: 28px;
+      flex-wrap: wrap;
+    }
+
+    .highlight {
+      width: 170px;
+      text-align: center;
+      text-decoration: none;
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+      overflow-wrap: anywhere;
+    }
+
+    .highlight-circle {
+      width: 170px;
+      height: 170px;
+      border-radius: 50%;
+      border: 5px solid #dedede;
+      padding: 11px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .highlight-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: var(--button);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .highlight-inner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .highlight-inner svg {
+      width: 45px;
+      height: 45px;
+      stroke: #080808;
+      stroke-width: 2.5;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .highlight-label {
+      font-size: 20px;
+      line-height: 1.3;
+    }
+
+    .empty-highlights {
+      color: #888;
+      font-size: 14px;
+      padding: 10px 0;
+    }
+
+    /* EDITOR MODAL */
+
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      background: rgba(0, 0, 0, 0.4);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 15px;
+    }
+
+    .modal-overlay.open {
+      display: flex;
+    }
+
+    .modal {
+      background: white;
+      width: 100%;
+      max-width: 520px;
+      max-height: 90vh;
+      overflow-y: auto;
+      border-radius: 22px;
+      padding: 25px;
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 25px;
+    }
+
+    .modal-header h2 {
+      margin: 0;
+      font-size: 23px;
+    }
+
+    .close-button {
+      background: transparent;
+      border: none;
+      font-size: 28px;
+      line-height: 1;
+      padding: 5px;
+    }
+
+    .form-group {
+      margin-bottom: 19px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 14px;
+      font-weight: 650;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      border: 1px solid #dedede;
+      border-radius: 12px;
+      padding: 13px 14px;
+      background: #fafafa;
+      color: #111;
+      outline-offset: 1px;
+    }
+
+    .form-group textarea {
+      min-height: 95px;
+      resize: vertical;
+    }
+
+    .form-help {
+      display: block;
+      color: #777;
+      font-size: 12px;
+      line-height: 1.5;
+      margin-top: 7px;
+    }
+
+    .avatar-preview {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      background: #f0eff4;
+      object-fit: cover;
+      display: block;
+      margin-bottom: 12px;
+    }
+
+    .divider {
+      height: 1px;
+      background: #eee;
+      margin: 25px 0;
+    }
+
+    .editor-highlight {
+      border: 1px solid #e5e5e5;
+      border-radius: 14px;
+      padding: 15px;
+      margin-bottom: 12px;
+      position: relative;
+    }
+
+    .editor-highlight h4 {
+      margin: 0 0 13px;
+      font-size: 15px;
+    }
+
+    .editor-highlight .form-group {
+      margin-bottom: 12px;
+    }
+
+    .editor-highlight .form-group:last-child {
+      margin-bottom: 0;
+    }
+
+    .delete-button {
+      border: none;
+      border-radius: 9px;
+      background: #f5eaea;
+      color: #a33131;
+      padding: 9px 12px;
+      font-size: 13px;
+      margin-top: 12px;
+    }
+
+    .add-button {
+      width: 100%;
+      padding: 13px;
+      border: 1px dashed #aaa;
+      border-radius: 12px;
+      background: white;
+      margin-top: 5px;
+    }
+
+    .save-button {
+      width: 100%;
+      padding: 16px;
+      border: none;
+      border-radius: 14px;
+      background: #080808;
+      color: white;
+      font-weight: 650;
+      margin-top: 15px;
+    }
+
+    .reset-button {
+      width: 100%;
+      padding: 12px;
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      margin-top: 10px;
+      color: #666;
+    }
+
+    .notice {
+      font-size: 12px;
+      color: #777;
+      line-height: 1.6;
+      margin-top: 12px;
+    }
+
+    /* SHARE MODAL */
+
+    .share-link {
+      display: flex;
+      gap: 8px;
+    }
+
+    .share-link input {
+      min-width: 0;
+      flex: 1;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+    }
+
+    .share-link button {
+      padding: 12px;
+      border: none;
+      background: #080808;
+      color: white;
+      border-radius: 10px;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 25px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 200;
+      background: #111;
+      color: white;
+      border-radius: 12px;
+      padding: 13px 20px;
+      font-size: 14px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s;
+      max-width: 90%;
+      text-align: center;
+    }
+
+    .toast.show {
+      opacity: 1;
+    }
+
+    @media (max-width: 600px) {
+      .app {
+        width: 100%;
+      }
+
+      .header {
+        height: 105px;
+        padding: 0 22px;
+      }
+
+      .icon-button {
+        width: 38px;
+        height: 44px;
+      }
+
+      .icon-button svg {
+        width: 31px;
+        height: 31px;
+      }
+
+      .username-heading {
+        gap: 10px;
+      }
+
+      .username-heading h1 {
+        letter-spacing: -1px;
+      }
+
+      .profile {
+        padding: 42px 4% 35px;
+      }
+
+      .profile-top {
+        margin-bottom: 42px;
+      }
+
+      .avatar {
+        width: 155px;
+        height: 155px;
+      }
+
+      .profile-name {
+        font-size: 30px;
+        margin-bottom: 13px;
+      }
+
+      .bio {
+        font-size: 25px;
+        line-height: 1.45;
+      }
+
+      .actions {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) 68px;
+        gap: 10px;
+        margin-bottom: 60px;
+      }
+
+      .action-button {
+        min-height: 70px;
+        border-radius: 23px;
+        font-size: clamp(15px, 4.2vw, 22px);
+      }
+
+      .action-button svg {
+        width: 30px;
+        height: 30px;
+      }
+
+      .highlights {
+        gap: 20px;
+      }
+
+      .highlight {
+        width: 125px;
+      }
+
+      .highlight-circle {
+        width: 125px;
+        height: 125px;
+        border-width: 5px;
+        padding: 9px;
+      }
+
+      .highlight-inner svg {
+        width: 36px;
+        height: 36px;
+      }
+
+      .highlight-label {
+        font-size: 18px;
+      }
+
+      .spotify-frame {
+        max-width: 100%;
+      }
+
+      .music-chip,
+      .music-add {
+        font-size: 17px;
+        padding: 11px 18px;
+        gap: 10px;
+      }
+
+      .music-chip svg,
+      .music-add svg {
+        width: 23px;
+        height: 23px;
+      }
+    }
+
+    @media (max-width: 370px) {
+      .header {
+        padding: 0 12px;
+      }
+
+      .username-heading h1 {
+        font-size: 22px;
+      }
+
+      .profile {
+        padding-left: 15px;
+        padding-right: 15px;
+      }
+
+      .actions {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) 55px;
+        gap: 6px;
+      }
+
+      .action-button {
+        padding: 8px 4px;
+        font-size: 14px;
+      }
+
+      .highlight {
+        width: 110px;
+      }
+
+      .highlight-circle {
+        width: 110px;
+        height: 110px;
+      }
+    }
+
+    /* COMPACT LAYOUT (phone-profile proportions) */
+
+    .app { max-width: 480px; }
+
+    .header { height: 56px; padding: 0 16px; }
+    .icon-button { width: 32px; height: 32px; }
+    .icon-button svg { width: 24px; height: 24px; }
+    .username-heading { gap: 6px; }
+    .username-heading h1 { font-size: 20px; letter-spacing: -0.3px; }
+    .dropdown-arrow { width: 8px; height: 8px; border-width: 1.5px; }
+
+    .profile { padding: 8px 16px 24px; }
+    .profile-top {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 14px;
+    }
+    .avatar { width: 76px; height: 76px; flex-shrink: 0; }
+    .avatar-placeholder { font-size: 24px; }
+    .profile-name { font-size: 16px; line-height: 1.25; margin: 0; }
+    .bio { font-size: 14px; line-height: 1.4; }
+
+    .music-section { margin-top: 10px; margin-bottom: 14px; }
+    .music-row { gap: 8px; }
+    .music-chip, .music-add {
+      font-size: 13px;
+      font-weight: 600;
+      padding: 7px 14px;
+      gap: 8px;
+    }
+    .music-chip svg, .music-add svg { width: 16px; height: 16px; stroke-width: 2; }
+    .music-chip .artist { margin-left: 2px; }
+
+    .actions {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) 40px;
+      gap: 6px;
+      margin-bottom: 22px;
+    }
+    .action-button {
+      min-height: 34px;
+      padding: 6px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .action-button svg { width: 20px; height: 20px; }
+
+    .highlights { gap: 16px; }
+    .highlight { width: 68px; gap: 6px; }
+    .highlight-circle { width: 68px; height: 68px; border-width: 2px; padding: 3px; }
+    .highlight-inner svg { width: 22px; height: 22px; stroke-width: 2; }
+    .highlight-label { font-size: 12px; line-height: 1.25; }
+
+    /* ADMIN / VISITOR MODES */
+
+    .admin-bar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      padding: 8px 12px;
+      background: #0d1014;
+      color: #f4f5f7;
+      font-size: 12px;
+    }
+
+    .admin-bar[hidden],
+    .site-footer button[hidden] {
+      display: none;
+    }
+
+    .admin-bar .status {
+      flex: 1;
+      min-width: 140px;
+    }
+
+    .admin-bar button {
+      border: none;
+      border-radius: 8px;
+      padding: 7px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      background: #272c33;
+      color: #fff;
+    }
+
+    .admin-bar button.primary {
+      background: #fff;
+      color: #0d1014;
+    }
+
+    .site-footer {
+      text-align: center;
+      padding: 10px 0 30px;
+    }
+
+    .site-footer button {
+      background: none;
+      border: none;
+      color: #b5b5b5;
+      font-size: 11px;
+    }
+
+    .login-error {
+      color: #b33232;
+      font-size: 13px;
+      min-height: 18px;
+      margin: 0 0 8px;
+    }
+
+    body:not(.is-admin) #addButton,
+    body:not(.is-admin) #menuButton {
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    body:not(.is-admin) #quickEditButton,
+    body:not(.is-admin) .music-add {
+      display: none;
+    }
+
+    body:not(.is-admin) .actions {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    }
+
+    body:not(.is-admin) .avatar {
+      pointer-events: none;
+      cursor: default;
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="app">
+
+    <!-- ADMIN BAR (visible only after admin login) -->
+
+    <div class="admin-bar" id="adminBar" hidden>
+      <span class="status" id="adminStatus">Admin</span>
+      <button type="button" id="barEdit">Edit</button>
+      <button type="button" class="primary" id="publishButton">Publish</button>
+      <button type="button" id="logoutButton">Logout</button>
+    </div>
+
+    <!-- HEADER -->
+
+    <header class="header">
+
+      <button
+        class="icon-button"
+        id="addButton"
+        aria-label="Edit profile"
+        title="Edit profile"
+      >
+        <svg viewBox="0 0 40 40">
+          <path d="M20 5 V35 M5 20 H35"/>
+        </svg>
+      </button>
+
+      <div class="username-heading">
+        <h1 id="usernameHeading">lesyeuxdenini</h1>
+        <span class="dropdown-arrow"></span>
+      </div>
+
+      <button
+        class="icon-button"
+        id="menuButton"
+        aria-label="Open settings"
+        title="Edit profile"
+      >
+        <svg viewBox="0 0 40 40">
+          <path d="M5 9 H35 M5 20 H35 M5 31 H35"/>
+        </svg>
+      </button>
+
+    </header>
+
+    <!-- PROFILE -->
+
+    <section class="profile">
+
+      <div class="profile-top">
+
+        <button
+          class="avatar"
+          id="avatarButton"
+          aria-label="Edit profile picture"
+          title="Edit profile picture"
+        >
+          <img
+            id="profileAvatar"
+            src=""
+            alt="Profile picture"
+            style="display:none"
+          >
+          <span class="avatar-placeholder" id="avatarPlaceholder">
+            +
+          </span>
+        </button>
+
+        <h2 class="profile-name" id="displayName">
+          jemappelle
+        </h2>
+
+      </div>
+
+      <div class="profile-information">
+
+        <p class="bio" id="displayBio">i hope you read it—until the end???</p>
+
+      </div>
+
+      <!-- SPOTIFY MUSIC PLAYER -->
+      <!-- Music is displayed directly underneath the bio. -->
+
+      <section class="music-section" id="musicSection"></section>
+
+      <!-- PROFILE ACTIONS -->
+
+      <div class="actions">
+
+        <button
+          class="action-button"
+          id="followButton"
+        >
+          Follow
+        </button>
+
+        <button
+          class="action-button"
+          id="shareButton"
+        >
+          Share profile
+        </button>
+
+        <button
+          class="action-button"
+          id="quickEditButton"
+          aria-label="Edit profile"
+          title="Edit profile"
+        >
+          <svg viewBox="0 0 40 40">
+            <circle cx="14" cy="12" r="7"/>
+            <path d="M2 34 C2 25 8 21 16 21 C20 21 23 22 26 25"/>
+            <path d="M30 22 V36 M23 29 H37"/>
+          </svg>
+        </button>
+
+      </div>
+
+      <!-- HIGHLIGHTS -->
+
+      <section class="highlights" id="highlights"></section>
+
+    </section>
+
+    <footer class="site-footer">
+      <button type="button" id="adminLink">Admin</button>
+    </footer>
+
+  </main>
+
+  <!-- EDIT PROFILE MODAL -->
+
+  <div
+    class="modal-overlay"
+    id="editorOverlay"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="editorTitle"
+  >
+
+    <div class="modal">
+
+      <div class="modal-header">
+        <h2 id="editorTitle">Edit profile</h2>
+
+        <button
+          class="close-button"
+          id="closeEditor"
+          aria-label="Close"
+        >
+          &times;
+        </button>
+      </div>
+
+      <form id="profileForm">
+
+        <div class="form-group">
+          <label for="inputUsername">Username</label>
+          <input
+            id="inputUsername"
+            type="text"
+            maxlength="40"
+            placeholder="lesyeuxdenini"
+            required
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="inputName">Name</label>
+          <input
+            id="inputName"
+            type="text"
+            maxlength="100"
+            placeholder="jemappelle"
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="inputBio">Bio</label>
+          <textarea
+            id="inputBio"
+            maxlength="500"
+            placeholder="i hope you read it—until the end???"
+          ></textarea>
+          <span class="form-help">
+            You can use line breaks in your bio.
+          </span>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="form-group">
+
+          <label for="inputAvatar">Profile picture</label>
+
+          <img
+            id="avatarPreview"
+            class="avatar-preview"
+            src=""
+            alt="Avatar preview"
+            style="display:none"
+          >
+
+          <input
+            id="inputAvatar"
+            type="file"
+            accept="image/*"
+          >
+
+          <span class="form-help">
+            Select an image from your device. Square images work best.
+            Your image is stored locally in this browser.
+          </span>
+
+          <button
+            type="button"
+            class="delete-button"
+            id="removeAvatar"
+          >
+            Remove profile picture
+          </button>
+
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="form-group">
+
+          <label for="inputMusicTitle">Song title</label>
+          <input id="inputMusicTitle" type="text" maxlength="80" placeholder="Your Love Is A 187">
+
+          <label for="inputMusicArtist" style="margin-top:14px">Artist</label>
+          <input id="inputMusicArtist" type="text" maxlength="80" placeholder="Whitehead Bros.">
+
+          <label for="inputSpotify" style="margin-top:14px">Spotify link (optional)</label>
+
+          <input
+            id="inputSpotify"
+            type="url"
+            placeholder="https://open.spotify.com/track/..."
+          >
+
+          <span class="form-help">
+            Paste the song link from Spotify (Share → Copy Song Link).
+            If left empty, the play button opens a Spotify search for the song.
+            Leave the song title empty to hide the chip.
+          </span>
+
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="form-group">
+
+          <label>Highlights / Links</label>
+
+          <span class="form-help">
+            Add links to your websites, social media, or other pages.
+            Each link appears as a circular highlight on your profile.
+          </span>
+
+        </div>
+
+        <div id="highlightEditor"></div>
+
+        <button
+          type="button"
+          class="add-button"
+          id="addHighlight"
+        >
+          + Add highlight
+        </button>
+
+        <div class="divider"></div>
+
+        <div class="form-group">
+          <label for="inputPassword">Admin password</label>
+          <input
+            id="inputPassword"
+            type="password"
+            autocomplete="new-password"
+            placeholder="New password (leave empty to keep current)"
+          >
+          <span class="form-help">At least 6 characters.</span>
+        </div>
+
+        <p class="notice">
+          Changes are saved as a draft in this browser only. Visitors will see
+          them after you click <strong>Publish</strong> and upload the downloaded
+          <code>profile.js</code> next to <code>index.html</code>.
+        </p>
+
+        <button type="submit" class="save-button">
+          Save changes
+        </button>
+
+        <button
+          type="button"
+          class="reset-button"
+          id="resetProfile"
+        >
+          Discard unpublished changes
+        </button>
+
+      </form>
+
+    </div>
+
+  </div>
+
+  <!-- SHARE PROFILE MODAL -->
+
+  <div
+    class="modal-overlay"
+    id="shareOverlay"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="shareTitle"
+  >
+
+    <div class="modal">
+
+      <div class="modal-header">
+
+        <h2 id="shareTitle">Share profile</h2>
+
+        <button
+          class="close-button"
+          id="closeShare"
+          aria-label="Close"
+        >
+          &times;
+        </button>
+
+      </div>
+
+      <p style="color:#666;line-height:1.6">
+        Copy this page's address to share it with someone.
+      </p>
+
+      <div class="share-link">
+
+        <input
+          id="shareUrl"
+          type="text"
+          readonly
+          aria-label="Profile URL"
+        >
+
+        <button type="button" id="copyShare">
+          Copy
+        </button>
+
+      </div>
+
+      <p class="notice">
+        To share your profile publicly, publish the website online first.
+        Local browser changes alone are not visible to other users.
+      </p>
+
+    </div>
+
+  </div>
+
+  <!-- ADMIN LOGIN MODAL -->
+
+  <div
+    class="modal-overlay"
+    id="loginOverlay"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="loginTitle"
+  >
+    <div class="modal">
+      <div class="modal-header">
+        <h2 id="loginTitle">Admin login</h2>
+        <button class="close-button" id="closeLogin" aria-label="Close">&times;</button>
+      </div>
+
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="loginPassword">Password</label>
+          <input id="loginPassword" type="password" autocomplete="current-password" required>
+        </div>
+
+        <p class="login-error" id="loginError"></p>
+
+        <button type="submit" class="save-button" style="margin-top:0">Log in</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status"></div>
+
+  <script src="profile.js"></script>
+  <script>
+    /* ========================================
+       DEFAULT PROFILE
+    ======================================== */
+
+    const DEFAULT_PROFILE = {
+      username: "lesyeuxdenini",
+      name: "jemappelle",
+      bio: "i hope you read it—until the end???",
+      avatar: "",
+      spotify: "",
+      musicTitle: "Your Love Is A 187",
+      musicArtist: "Whitehead Bros.",
+      highlights: [
+        {
+          title: "hi",
+          url: "",
+          image: ""
+        }
+      ]
+    };
+
+    const SITE = window.SITE_DATA || {};
+
+    // SHA-256 of the default admin password. Change it from the editor.
+    const DEFAULT_ADMIN_HASH = "76aefa3c442d2db6ace07371d3cfea85b30299220091368d8be7aa6684d2c314";
+
+    const PUBLISHED_PROFILE = SITE.profile || {};
+    const PUBLISHED_HASH = SITE.adminHash || DEFAULT_ADMIN_HASH;
+
+    const DRAFT_KEY = "lesyeuxdenini_draft_v2";
+    const SESSION_KEY = "lesyeuxdenini_admin";
+
+    let isAdmin = readSession();
+    let adminHash = PUBLISHED_HASH;
+
+    let profile = loadProfile();
+
+    let pendingAvatar = profile.avatar || "";
+
+    /* ========================================
+       ELEMENTS
+    ======================================== */
+
+    const $ = (id) => document.getElementById(id);
+
+    const usernameHeading = $("usernameHeading");
+    const displayName = $("displayName");
+    const displayBio = $("displayBio");
+
+    const profileAvatar = $("profileAvatar");
+    const avatarPlaceholder = $("avatarPlaceholder");
+
+    const musicSection = $("musicSection");
+    const highlightsContainer = $("highlights");
+
+    const editorOverlay = $("editorOverlay");
+    const shareOverlay = $("shareOverlay");
+
+    const profileForm = $("profileForm");
+    const highlightEditor = $("highlightEditor");
+
+    /* ========================================
+       STORAGE
+    ======================================== */
+
+    function readSession() {
+      try {
+        return sessionStorage.getItem(SESSION_KEY) === "1";
+      } catch (error) {
+        return false;
+      }
+    }
+
+    function normalize(data) {
+      const base = structuredClone(DEFAULT_PROFILE);
+
+      return {
+        ...base,
+        ...data,
+        highlights: Array.isArray(data.highlights)
+          ? data.highlights
+          : base.highlights
+      };
+    }
+
+    // Visitors always get the published profile.
+    // The admin gets the local draft (if any) on top of it.
+    function loadProfile() {
+      const published = normalize(PUBLISHED_PROFILE);
+
+      if (!isAdmin) return published;
+
+      try {
+        const saved = localStorage.getItem(DRAFT_KEY);
+
+        if (saved) {
+          const draft = JSON.parse(saved);
+
+          if (draft.adminHash) adminHash = draft.adminHash;
+
+          return normalize(draft.profile || {});
+        }
+      } catch (error) {
+        console.warn("Unable to load draft:", error);
+      }
+
+      return published;
+    }
+
+    function saveProfile() {
+      try {
+        localStorage.setItem(
+          DRAFT_KEY,
+          JSON.stringify({ profile, adminHash })
+        );
+
+        return true;
+
+      } catch (error) {
+        console.error("Unable to save draft:", error);
+
+        showToast("Storage is full. Try using a smaller image.");
+
+        return false;
+      }
+    }
+
+    /* ========================================
+       RENDER PROFILE
+    ======================================== */
+
+    function renderProfile() {
+      usernameHeading.textContent = profile.username || "";
+      displayName.textContent = profile.name || "";
+      displayBio.textContent = profile.bio || "";
+
+      document.title =
+        (profile.username || "Profile") + " — Profile";
+
+      renderAvatar();
+      renderSpotify();
+      renderHighlights();
+      renderAdminBar();
+    }
+
+    /* ========================================
+       AVATAR
+    ======================================== */
+
+    function renderAvatar() {
+      if (profile.avatar) {
+        profileAvatar.src = profile.avatar;
+        profileAvatar.style.display = "block";
+        avatarPlaceholder.style.display = "none";
+      } else {
+        profileAvatar.removeAttribute("src");
+        profileAvatar.style.display = "none";
+        avatarPlaceholder.style.display = "block";
+      }
+    }
+
+    $("avatarButton").addEventListener("click", openEditor);
+
+    $("inputAvatar").addEventListener("change", function () {
+      const file = this.files && this.files[0];
+
+      if (!file) return;
+
+      if (!file.type.startsWith("image/")) {
+        showToast("Please choose an image file.");
+        this.value = "";
+        return;
+      }
+
+      // Keep localStorage usage manageable.
+      if (file.size > 3 * 1024 * 1024) {
+        showToast("Please choose an image under 3 MB.");
+        this.value = "";
+        return;
+      }
+
+      const reader = new FileReader();
+
+      reader.onload = function (event) {
+        pendingAvatar = event.target.result;
+
+        $("avatarPreview").src = pendingAvatar;
+        $("avatarPreview").style.display = "block";
+      };
+
+      reader.readAsDataURL(file);
+    });
+
+    $("removeAvatar").addEventListener("click", function () {
+      pendingAvatar = "";
+
+      $("inputAvatar").value = "";
+      $("avatarPreview").removeAttribute("src");
+      $("avatarPreview").style.display = "none";
+    });
+
+    /* ========================================
+       SPOTIFY PLAYER
+    ======================================== */
+
+    function getSpotifyEmbedUrl(input) {
+      if (!input) return "";
+
+      try {
+        const parsed = new URL(input.trim());
+
+        // Accept only Spotify's official domains.
+        const host = parsed.hostname.toLowerCase();
+
+        const validHost =
+          host === "open.spotify.com" ||
+          host === "spotify.link" ||
+          host === "spotify.app.link";
+
+        if (!validHost) return "";
+
+        // Short links must first be resolved to their full Spotify URL.
+        // This page deliberately does not load external redirect services.
+        if (host !== "open.spotify.com") return "";
+
+        const parts = parsed.pathname
+          .split("/")
+          .filter(Boolean);
+
+        // Support /track/ID, /playlist/ID, /album/ID,
+        // /episode/ID and /show/ID.
+        const type = parts[0];
+        const id = parts[1];
+
+        const supportedTypes = [
+          "track",
+          "playlist",
+          "album",
+          "episode",
+          "show"
+        ];
+
+        if (!supportedTypes.includes(type) || !id) {
+          return "";
+        }
+
+        if (!/^[a-zA-Z0-9]+$/.test(id)) {
+          return "";
+        }
+
+        return (
+          "https://open.spotify.com/embed/" +
+          type + "/" + id +
+          "?utm_source=generator"
+        );
+
+      } catch (error) {
+        return "";
+      }
+    }
+
+    function svgIcon(paths) {
+      const ns = "http://www.w3.org/2000/svg";
+      const svg = document.createElementNS(ns, "svg");
+
+      svg.setAttribute("viewBox", "0 0 24 24");
+      svg.setAttribute("aria-hidden", "true");
+
+      paths.forEach((d) => {
+        const path = document.createElementNS(ns, "path");
+        path.setAttribute("d", d);
+        svg.appendChild(path);
+      });
+
+      return svg;
+    }
+
+    function renderSpotify() {
+      musicSection.replaceChildren();
+
+      const title = (profile.musicTitle || "").trim();
+      const artist = (profile.musicArtist || "").trim();
+
+      if (!title) return;
+
+      const embedUrl = getSpotifyEmbedUrl(profile.spotify);
+
+      const row = document.createElement("div");
+      row.className = "music-row";
+
+      const chip = document.createElement("button");
+      chip.type = "button";
+      chip.className = "music-chip";
+      chip.title = "Play on Spotify";
+
+      const titleSpan = document.createElement("span");
+      titleSpan.textContent = title;
+
+      chip.append(
+        svgIcon(["M7 4.5v15l13-7.5z"]),
+        titleSpan
+      );
+
+      if (artist) {
+        const artistSpan = document.createElement("span");
+        artistSpan.className = "artist";
+        artistSpan.textContent = artist;
+        chip.appendChild(artistSpan);
+      }
+
+      const add = document.createElement("button");
+      add.type = "button";
+      add.className = "music-add";
+      add.title = "Change song";
+      add.append(svgIcon(["M12 4v16M4 12h16"]), document.createTextNode("Add"));
+      add.addEventListener("click", openEditor);
+
+      const player = document.createElement("div");
+      player.className = "music-player";
+
+      chip.addEventListener("click", function () {
+        if (embedUrl) {
+          // Toggle the Spotify player underneath the chip.
+          if (player.firstChild) {
+            player.replaceChildren();
+            return;
+          }
+
+          const iframe = document.createElement("iframe");
+
+          iframe.className = "spotify-frame";
+          iframe.src = embedUrl;
+          iframe.title = "Spotify music player";
+          iframe.setAttribute("allow", "autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture");
+          iframe.referrerPolicy = "strict-origin-when-cross-origin";
+
+          player.appendChild(iframe);
+
+        } else {
+          const query = encodeURIComponent((title + " " + artist).trim());
+
+          window.open(
+            "https://open.spotify.com/search/" + query,
+            "_blank",
+            "noopener,noreferrer"
+          );
+        }
+      });
+
+      row.append(chip, add);
+      musicSection.append(row, player);
+    }
+
+    /* ========================================
+       HIGHLIGHTS
+    ======================================== */
+
+    function createLinkIcon() {
+      const svg = document.createElementNS(
+        "http://www.w3.org/2000/svg",
+        "svg"
+      );
+
+      svg.setAttribute("viewBox", "0 0 48 48");
+      svg.setAttribute("aria-hidden", "true");
+
+      const path = document.createElementNS(
+        "http://www.w3.org/2000/svg",
+        "path"
+      );
+
+      path.setAttribute(
+        "d",
+        "M19 29l-3 3a8 8 0 0 1-11-11l8-8a8 8 0 0 1 11 0 M29 19l3-3a8 8 0 0 1 11 11l-8 8a8 8 0 0 1-11 0 M17 31l14-14"
+      );
+
+      svg.appendChild(path);
+
+      return svg;
+    }
+
+    function renderHighlights() {
+      highlightsContainer.replaceChildren();
+
+      if (!profile.highlights.length) {
+        const empty = document.createElement("p");
+
+        empty.className = "empty-highlights";
+        empty.textContent = "No highlights yet.";
+
+        highlightsContainer.appendChild(empty);
+
+        return;
+      }
+
+      profile.highlights.forEach((item) => {
+        const link = document.createElement("a");
+
+        link.className = "highlight";
+
+        const circle = document.createElement("div");
+        circle.className = "highlight-circle";
+
+        const inner = document.createElement("div");
+        inner.className = "highlight-inner";
+
+        if (item.image) {
+          const image = document.createElement("img");
+
+          image.src = item.image;
+          image.alt = "";
+
+          inner.appendChild(image);
+
+        } else {
+          inner.appendChild(createLinkIcon());
+        }
+
+        circle.appendChild(inner);
+
+        const label = document.createElement("span");
+
+        label.className = "highlight-label";
+        label.textContent = item.title || "link";
+
+        link.append(circle, label);
+
+        const safeUrl = validateWebUrl(item.url);
+
+        if (safeUrl) {
+          link.href = safeUrl;
+          link.target = "_blank";
+          link.rel = "noopener noreferrer";
+        } else {
+          link.href = "#";
+
+          link.addEventListener("click", function (event) {
+            event.preventDefault();
+
+            if (!item.url) {
+              showToast("Add a link in Edit profile first.");
+            }
+          });
+        }
+
+        highlightsContainer.appendChild(link);
+      });
+    }
+
+    function validateWebUrl(value) {
+      if (!value) return "";
+
+      try {
+        const url = new URL(value.trim());
+
+        if (
+          url.protocol !== "https:" &&
+          url.protocol !== "http:"
+        ) {
+          return "";
+        }
+
+        return url.href;
+
+      } catch (error) {
+        return "";
+      }
+    }
+
+    /* ========================================
+       EDITOR
+    ======================================== */
+
+    function openEditor() {
+      if (!isAdmin) return;
+
+      $("inputUsername").value = profile.username || "";
+      $("inputName").value = profile.name || "";
+      $("inputBio").value = profile.bio || "";
+      $("inputSpotify").value = profile.spotify || "";
+      $("inputMusicTitle").value = profile.musicTitle || "";
+      $("inputMusicArtist").value = profile.musicArtist || "";
+      $("inputPassword").value = "";
+
+      pendingAvatar = profile.avatar || "";
+
+      $("inputAvatar").value = "";
+
+      if (pendingAvatar) {
+        $("avatarPreview").src = pendingAvatar;
+        $("avatarPreview").style.display = "block";
+      } else {
+        $("avatarPreview").removeAttribute("src");
+        $("avatarPreview").style.display = "none";
+      }
+
+      renderHighlightEditor();
+
+      editorOverlay.classList.add("open");
+
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeEditor() {
+      editorOverlay.classList.remove("open");
+
+      document.body.style.overflow = "";
+    }
+
+    $("addButton").addEventListener("click", openEditor);
+    $("menuButton").addEventListener("click", openEditor);
+    $("quickEditButton").addEventListener("click", openEditor);
+
+    $("closeEditor").addEventListener("click", closeEditor);
+
+    editorOverlay.addEventListener("click", function (event) {
+      if (event.target === editorOverlay) {
+        closeEditor();
+      }
+    });
+
+    /* ========================================
+       HIGHLIGHT EDITOR
+    ======================================== */
+
+    function renderHighlightEditor() {
+      highlightEditor.replaceChildren();
+
+      profile.highlights.forEach((item, index) => {
+        addHighlightEditorItem(item, index);
+      });
+    }
+
+    function addHighlightEditorItem(item = {}, index) {
+      const card = document.createElement("div");
+
+      card.className = "editor-highlight";
+
+      const heading = document.createElement("h4");
+
+      heading.textContent = "Highlight " + (index + 1);
+
+      const titleGroup = document.createElement("div");
+      titleGroup.className = "form-group";
+
+      const titleLabel = document.createElement("label");
+      titleLabel.textContent = "Title";
+
+      const titleInput = document.createElement("input");
+      titleInput.type = "text";
+      titleInput.maxLength = 50;
+      titleInput.placeholder = "hi";
+      titleInput.value = item.title || "";
+
+      titleLabel.appendChild(titleInput);
+      titleGroup.appendChild(titleLabel);
+
+      const urlGroup = document.createElement("div");
+      urlGroup.className = "form-group";
+
+      const urlLabel = document.createElement("label");
+      urlLabel.textContent = "Link URL";
+
+      const urlInput = document.createElement("input");
+      urlInput.type = "url";
+      urlInput.placeholder = "https://example.com";
+      urlInput.value = item.url || "";
+
+      urlLabel.appendChild(urlInput);
+      urlGroup.appendChild(urlLabel);
+
+      const imageGroup = document.createElement("div");
+      imageGroup.className = "form-group";
+
+      const imageLabel = document.createElement("label");
+      imageLabel.textContent = "Highlight cover (optional)";
+
+      const imageInput = document.createElement("input");
+      imageInput.type = "file";
+      imageInput.accept = "image/*";
+
+      imageLabel.appendChild(imageInput);
+      imageGroup.appendChild(imageLabel);
+
+      const imageHelp = document.createElement("span");
+
+      imageHelp.className = "form-help";
+      imageHelp.textContent =
+        "Optional. Choose an image to replace the link icon.";
+
+      imageGroup.appendChild(imageHelp);
+
+      const deleteButton = document.createElement("button");
+
+      deleteButton.type = "button";
+      deleteButton.className = "delete-button";
+      deleteButton.textContent = "Remove highlight";
+
+      deleteButton.addEventListener("click", function () {
+        const cards = Array.from(
+          highlightEditor.children
+        );
+
+        const currentIndex = cards.indexOf(card);
+
+        if (currentIndex !== -1) {
+          profile.highlights.splice(currentIndex, 1);
+
+          renderHighlightEditor();
+        }
+      });
+
+      imageInput.addEventListener("change", function () {
+        const file = this.files && this.files[0];
+
+        if (!file) return;
+
+        if (!file.type.startsWith("image/")) {
+          showToast("Please select an image.");
+          this.value = "";
+          return;
+        }
+
+        if (file.size > 3 * 1024 * 1024) {
+          showToast("Please choose an image under 3 MB.");
+          this.value = "";
+          return;
+        }
+
+        const reader = new FileReader();
+
+        reader.onload = function (event) {
+          item.image = event.target.result;
+
+          showToast("Cover selected. Save your profile to apply it.");
+        };
+
+        reader.readAsDataURL(file);
+      });
+
+      card.append(
+        heading,
+        titleGroup,
+        urlGroup,
+        imageGroup,
+        deleteButton
+      );
+
+      // Save the current form values before rerendering the editor.
+      card.dataset.title = item.title || "";
+      card.dataset.url = item.url || "";
+
+      titleInput.addEventListener("input", function () {
+        card.dataset.title = this.value;
+      });
+
+      urlInput.addEventListener("input", function () {
+        card.dataset.url = this.value;
+      });
+
+      highlightEditor.appendChild(card);
+    }
+
+    $("addHighlight").addEventListener("click", function () {
+      if (highlightEditor.children.length >= 20) {
+        showToast("You can add up to 20 highlights.");
+        return;
+      }
+
+      // Preserve edits currently typed into the form.
+      syncHighlightFields();
+
+      profile.highlights.push({
+        title: "",
+        url: "",
+        image: ""
+      });
+
+      renderHighlightEditor();
+    });
+
+    function syncHighlightFields() {
+      const cards = Array.from(
+        highlightEditor.children
+      );
+
+      const updated = cards.map((card, index) => {
+        const titleInput = card.querySelector(
+          'input[type="text"]'
+        );
+
+        const urlInput = card.querySelector(
+          'input[type="url"]'
+        );
+
+        const old = profile.highlights[index] || {};
+
+        return {
+          title: titleInput ? titleInput.value : "",
+          url: urlInput ? urlInput.value : "",
+          image: old.image || ""
+        };
+      });
+
+      profile.highlights = updated;
+    }
+
+    /* ========================================
+       SAVE PROFILE
+    ======================================== */
+
+    profileForm.addEventListener("submit", async function (event) {
+      event.preventDefault();
+
+      const username = $("inputUsername").value.trim();
+
+      if (!username) {
+        showToast("Please enter a username.");
+        return;
+      }
+
+      syncHighlightFields();
+
+      const updatedHighlights = [];
+
+      for (const item of profile.highlights) {
+        const title = (item.title || "").trim();
+        const rawUrl = (item.url || "").trim();
+
+        if (!title && !rawUrl && !item.image) {
+          continue;
+        }
+
+        if (rawUrl && !validateWebUrl(rawUrl)) {
+          showToast(
+            "Please enter a valid HTTP or HTTPS link for each highlight."
+          );
+          return;
+        }
+
+        updatedHighlights.push({
+          title: title || "link",
+          url: rawUrl,
+          image: item.image || ""
+        });
+      }
+
+      const spotify = $("inputSpotify").value.trim();
+
+      if (spotify && !getSpotifyEmbedUrl(spotify)) {
+        showToast(
+          "Enter a full Spotify track, playlist, album, episode, or show URL."
+        );
+        return;
+      }
+
+      const newPassword = $("inputPassword").value;
+
+      if (newPassword) {
+        if (newPassword.length < 6) {
+          showToast("Password must be at least 6 characters.");
+          return;
+        }
+
+        try {
+          adminHash = await sha256(newPassword);
+        } catch (error) {
+          showToast("Password change needs https or localhost.");
+          return;
+        }
+      }
+
+      profile.username = username.replace(/^@+/, "");
+      profile.name = $("inputName").value.trim();
+      profile.bio = $("inputBio").value;
+      profile.avatar = pendingAvatar;
+      profile.spotify = spotify;
+      profile.musicTitle = $("inputMusicTitle").value.trim();
+      profile.musicArtist = $("inputMusicArtist").value.trim();
+      profile.highlights = updatedHighlights;
+
+      if (saveProfile()) {
+        renderProfile();
+        closeEditor();
+
+        showToast("Profile saved successfully!");
+      }
+    });
+
+    /* ========================================
+       RESET
+    ======================================== */
+
+    $("resetProfile").addEventListener("click", function () {
+      const confirmed = confirm(
+        "Discard all unpublished changes and go back to the published profile?"
+      );
+
+      if (!confirmed) return;
+
+      profile = normalize(PUBLISHED_PROFILE);
+      adminHash = PUBLISHED_HASH;
+      pendingAvatar = "";
+
+      try {
+        localStorage.removeItem(DRAFT_KEY);
+      } catch (error) {
+        console.warn(error);
+      }
+
+      renderProfile();
+      closeEditor();
+
+      showToast("Draft discarded.");
+    });
+
+    /* ========================================
+       SHARE PROFILE
+    ======================================== */
+
+    $("shareButton").addEventListener("click", function () {
+      $("shareUrl").value = window.location.href;
+
+      shareOverlay.classList.add("open");
+    });
+
+    $("closeShare").addEventListener("click", function () {
+      shareOverlay.classList.remove("open");
+    });
+
+    shareOverlay.addEventListener("click", function (event) {
+      if (event.target === shareOverlay) {
+        shareOverlay.classList.remove("open");
+      }
+    });
+
+    $("copyShare").addEventListener("click", async function () {
+      const url = $("shareUrl").value;
+
+      try {
+        await navigator.clipboard.writeText(url);
+
+        showToast("Profile link copied!");
+
+      } catch (error) {
+        $("shareUrl").select();
+
+        const copied = document.execCommand("copy");
+
+        showToast(
+          copied
+            ? "Profile link copied!"
+            : "Please copy the link manually."
+        );
+      }
+    });
+
+    /* ========================================
+       FOLLOW BUTTON
+    ======================================== */
+
+    $("followButton").addEventListener("click", function () {
+      showToast(
+        "Connect this button to a real account or follow URL to enable following."
+      );
+    });
+
+    /* ========================================
+       TOAST NOTIFICATION
+    ======================================== */
+
+    let toastTimer;
+
+    function showToast(message) {
+      const toast = $("toast");
+
+      toast.textContent = message;
+      toast.classList.add("show");
+
+      clearTimeout(toastTimer);
+
+      toastTimer = setTimeout(function () {
+        toast.classList.remove("show");
+      }, 2800);
+    }
+
+    /* ========================================
+       KEYBOARD ACCESSIBILITY
+    ======================================== */
+
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape") {
+        closeEditor();
+        shareOverlay.classList.remove("open");
+      }
+    });
+
+    /* ========================================
+       ADMIN MODE
+    ======================================== */
+
+    const loginOverlay = $("loginOverlay");
+
+    async function sha256(text) {
+      if (!window.crypto || !crypto.subtle) {
+        throw new Error("Secure context required");
+      }
+
+      const bytes = new TextEncoder().encode(text);
+      const digest = await crypto.subtle.digest("SHA-256", bytes);
+
+      return Array.from(new Uint8Array(digest))
+        .map((b) => b.toString(16).padStart(2, "0"))
+        .join("");
+    }
+
+    function stable(value) {
+      if (Array.isArray(value)) {
+        return "[" + value.map(stable).join(",") + "]";
+      }
+
+      if (value && typeof value === "object") {
+        return "{" + Object.keys(value).sort().map(
+          (k) => JSON.stringify(k) + ":" + stable(value[k])
+        ).join(",") + "}";
+      }
+
+      return JSON.stringify(value);
+    }
+
+    function hasUnpublishedChanges() {
+      const published = {
+        adminHash: PUBLISHED_HASH,
+        profile: normalize(PUBLISHED_PROFILE)
+      };
+
+      return stable({ adminHash, profile }) !== stable(published);
+    }
+
+    function renderAdminBar() {
+      document.body.classList.toggle("is-admin", isAdmin);
+
+      $("adminBar").hidden = !isAdmin;
+      $("adminLink").hidden = isAdmin;
+
+      if (!isAdmin) return;
+
+      $("adminStatus").textContent = hasUnpublishedChanges()
+        ? "Admin · you have unpublished changes"
+        : "Admin · everything is published";
+    }
+
+    function setAdmin(on) {
+      isAdmin = on;
+
+      try {
+        if (on) sessionStorage.setItem(SESSION_KEY, "1");
+        else sessionStorage.removeItem(SESSION_KEY);
+      } catch (error) {
+        /* session storage unavailable */
+      }
+
+      adminHash = PUBLISHED_HASH;
+      profile = loadProfile();
+
+      renderProfile();
+    }
+
+    function openLogin() {
+      $("loginPassword").value = "";
+      $("loginError").textContent = "";
+
+      loginOverlay.classList.add("open");
+
+      setTimeout(() => $("loginPassword").focus(), 50);
+    }
+
+    function closeLogin() {
+      loginOverlay.classList.remove("open");
+    }
+
+    $("adminLink").addEventListener("click", openLogin);
+    $("closeLogin").addEventListener("click", closeLogin);
+
+    loginOverlay.addEventListener("click", function (event) {
+      if (event.target === loginOverlay) closeLogin();
+    });
+
+    $("loginForm").addEventListener("submit", async function (event) {
+      event.preventDefault();
+
+      try {
+        const hash = await sha256($("loginPassword").value);
+
+        if (hash === PUBLISHED_HASH) {
+          closeLogin();
+          setAdmin(true);
+          showToast("Admin mode on.");
+        } else {
+          $("loginError").textContent = "Wrong password.";
+        }
+
+      } catch (error) {
+        $("loginError").textContent =
+          "Login needs https or localhost.";
+      }
+    });
+
+    $("barEdit").addEventListener("click", openEditor);
+
+    $("logoutButton").addEventListener("click", function () {
+      setAdmin(false);
+      showToast("Logged out.");
+    });
+
+    // Publish = download profile.js, then upload it next to index.html.
+    $("publishButton").addEventListener("click", function () {
+      if (!isAdmin) return;
+
+      const text =
+        "window.SITE_DATA = " +
+        JSON.stringify({ adminHash, profile }, null, 2) +
+        ";\n";
+
+      const blob = new Blob([text], { type: "text/javascript" });
+      const link = document.createElement("a");
+
+      link.href = URL.createObjectURL(blob);
+      link.download = "profile.js";
+
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+
+      setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+
+      showToast("profile.js downloaded. Upload it next to index.html to publish.");
+    });
+
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape") closeLogin();
+    });
+
+    /* ========================================
+       INITIALIZE
+    ======================================== */
+
+    renderProfile();
+
+    if (location.hash === "#admin" && !isAdmin) openLogin();
+  </script>
+
+</body>
+</html>
